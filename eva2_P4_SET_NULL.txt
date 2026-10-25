@@ -1,0 +1,108 @@
+MySQL Shell 26.7.1
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect root@localhost
+Creating a session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use t2
+Default schema set to `t2`.
+Fetching global names, object names from `t2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  t2  SQL > create table area(id_area int not null key auto_increment, nombre_area varchar(50) not null);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key auto_increment, nombre_area varchar(50) not null)' at line 1
+
+ MySQL  localhost:3306 ssl  t2  SQL > create table area(id_area int not null auto_increment primary key, nombre_area varchar(50) not null);
+Query OK, 0 rows affected (0.0488 sec)
+
+ MySQL  localhost:3306 ssl  t2  SQL > create table personal(id_persona int not null auto_increment, id_area int not null, nombre varchar(50) not null, primary key (id_personas), foreign key (id_area) references area(id_area) on update cascade on delete restrict);
+ERROR: 1072 (42000): Key column 'id_personas' doesn't exist in table
+
+ MySQL  localhost:3306 ssl  t2  SQL > create table personal(id_persona int not null auto_increment, id_area int not null, nombre varchar(50) not null, primary key (id_persona), foreign key (id_area) references area(id_area) on update cascade on delete restrict);
+Query OK, 0 rows affected (0.0930 sec)
+
+ MySQL  localhost:3306 ssl  t2  SQL > insert into area(nombre_area) values("Ventas"),("Soporte"),("Finanzas"),("Marketing");
+Query OK, 4 rows affected (0.0204 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3306 ssl  t2  SQL > insert into personal(id_area, nombre) values(3,"Alejandro"),(2,"jorge"),(4,"alexa"),(1,"Mario"),(2,"Erika");
+Query OK, 5 rows affected (0.0111 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3306 ssl  t2  SQL > update area set nombre_area = "Contabilidad" where nombre_area = "Finanzas";
+Query OK, 1 row affected (0.0090 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+ MySQL  localhost:3306 ssl  t2  SQL > delete from area where id_area = 2;
+ERROR: 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`t2`.`personal`, CONSTRAINT `personal_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `area` (`id_area`) ON DELETE RESTRICT ON UPDATE CASCADE)
+
+ MySQL  localhost:3306 ssl  t2  SQL > create table platillo(id_platillo int not null key auto_increment, desc_platillo varchar(50));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key auto_increment, desc_platillo varchar(50))' at line 1
+
+ MySQL  localhost:3306 ssl  t2  SQL > create table platillo(id_platillo int not null auto_increment primary key, desc_platillo varchar(50));
+Query OK, 0 rows affected (0.0341 sec)
+
+ MySQL  localhost:3306 ssl  t2  SQL > create table comensal( id_comensal int not null auto_increment, nombre varchar(50) not null, id_platillo int, primary key (id_comensal), foreign key (id_platillo) references platillo (id_platillo) on uptade cascade on delete set null);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'uptade cascade on delete set null)' at line 1
+
+ MySQL  localhost:3306 ssl  t2  SQL > create table comensal ( id_comensal int not null auto_increment, nombre varchar(50) not null, id_platillo int, primary key (id_comensal), foreign key (id_platillo) references platillo (id_platillo) on update cascade on delete set null );
+Query OK, 0 rows affected (0.0763 sec)
+
+ MySQL  localhost:3306 ssl  t2  SQL > insert into platillo(desc_platillo) values ("pizza"),("hamburguesa"),("hotdogs");
+Query OK, 3 rows affected (0.0147 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3306 ssl  t2  SQL > insert into comensal (nombre, id_platillo) values ("Juan", 1), ("mariana", 1), ("carlos", 3), ("joaquin", 2);
+Query OK, 4 rows affected (0.0104 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3306 ssl  t2  SQL > delete from platillo where id_platillo = 3;
+Query OK, 1 row affected (0.0084 sec)
+
+ MySQL  localhost:3306 ssl  t2  SQL > select * from area;
++---------+----------------+
+| id_area | nombre_area    |
++---------+----------------+
+|       1 | Ventas         |
+|       2 | Soporte        |
+|       3 | Contabilidad   |
+|       4 | Marketing      |
++---------+----------------+
+4 rows in set (0.0008 sec)
+
+ MySQL  localhost:3306 ssl  t2  SQL > select * from personal;
++------------+---------+-----------+
+| id_persona | id_area | nombre    |
++------------+---------+-----------+
+|          1 |       3 | Alejandro |
+|          2 |       2 | jorge     |
+|          3 |       4 | alexa     |
+|          4 |       1 | Mario     |
+|          5 |       2 | Erika     |
++------------+---------+-----------+
+5 rows in set (0.0009 sec)
+
+ MySQL  localhost:3306 ssl  t2  SQL > select * from platillo;
++-------------+---------------+
+| id_platillo | desc_platillo |
++-------------+---------------+
+|           1 | pizza         |
+|           2 | hamburguesa   |
++-------------+---------------+
+2 rows in set (0.0008 sec)
+
+ MySQL  localhost:3306 ssl  t2  SQL > select * from comensal;
++------------+---------+------------+
+| id_comensal| nombre  | id_platillo|
++------------+---------+------------+
+|          1 | Juan    |          1 |
+|          2 | mariana |          1 |
+|          3 | carlos  |       NULL |
+|          4 | joaquin |          2 |
++------------+---------+------------+
+4 rows in set (0.0008 sec)

@@ -1,0 +1,99 @@
+MySQL Shell 26.7.1
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect root@localhost
+Creating a session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use t2
+Default schema set to `t2`.
+Fetching global names, object names from `t2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  t2  SQL > create database practica4;
+Query OK, 1 row affected (0.05 sec)
+
+ MySQL  localhost:3306 ssl  t2  SQL > use practica4;
+Default schema set to `practica4`.
+Fetching global names, object names from `practica4` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  practica4  SQL > create table usuario (id_usuario int not null auto_increment primary key, nombres varchar(50), apellidos varchar(50), f_nacimiento date);
+Query OK, 0 rows affected (0.04 sec)
+
+ MySQL  localhost:3306 ssl  practica4  SQL > create table pedido(id_pedido int auto_increment primary key, id_usuario int, fecha_pedido date, constraint fk_usr foreing key(id_usuario) references usuario(id_usuario));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreing key(id_usuario)...' at line 1
+
+ MySQL  localhost:3306 ssl  practica4  SQL > alter table pedido add foreign key (id_usuario) references usuario(id_usuario) on delete cascade on update cascade;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3306 ssl  practica4  SQL > create table articulo(id_articulo int auto_increment primary key, nombre_art varchar(50), precio double, unidad varchar(10));
+Query OK, 0 rows affected (0.03 sec)
+
+ MySQL  localhost:3306 ssl  practica4  SQL > delete from usuario = where id_usuario = 1;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= where id_usuario = 1' at line 1
+
+ MySQL  localhost:3306 ssl  practica4  SQL > delete from usuario where id_usuario = 1;
+Query OK, 0 rows affected (0.00 sec)
+
+ MySQL  localhost:3306 ssl  practica4  SQL > create table detalle_pedido(id_detalle int auto_increment primary key, id_pedido int, id_articulo int, cantidad int, foreign key(id_pedido) references pedido(id_pedido) on update cascade on delete cascade, foreign key(id_articulo) refences articulo(id_articulo) on update cascade on delete cascade);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refences articulo(id_articulo)...' at line 1
+
+ MySQL  localhost:3306 ssl  practica4  SQL > create table detalle_pedido(id_detalle int auto_increment primary key, id_pedido int, id_articulo int, cantidad int, foreign key(id_pedido) references pedido(id_pedido) on update cascade on delete cascade, foreign key(id_articulo) references articulo(id_articulo) on update cascade on delete cascade);
+Query OK, 0 rows affected (0.07 sec)
+
+ MySQL  localhost:3306 ssl  practica4  SQL > insert into usuario values(null, 'pancho', 'gomez', '2001-03-12'), (null, 'lupe', 'santos', '1998-07-25'), (null, 'chuy', 'perez', '2002-12-01');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3306 ssl  practica4  SQL > insert into articulo values(null, 'tenis', 1200, 'par'), (null, 'gorra', 350, 'pieza'), (null, 'mochila', 800, 'pieza');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3306 ssl  practica4  SQL > insert into pedido values(null, 2, '2026-10-18'), (null, 3, '2026-10-19');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3306 ssl  practica4  SQL > insert into detalle_pedido values(null, 1, 1, 2), (null, 2, 3, 4);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+ MySQL  localhost:3306 ssl  practica4  SQL > select * from usuario;
++------------+---------+-----------+--------------+
+| id_usuario | nombres | apellidos | f_nacimiento |
++------------+---------+-----------+--------------+
+|          2 | lupe    | santos    | 1998-07-25   |
+|          3 | chuy    | perez     | 2002-12-01   |
++------------+---------+-----------+--------------+
+2 rows in set (0.0008 sec)
+
+ MySQL  localhost:3306 ssl  practica4  SQL > select * from pedido;
++----------+------------+--------------+
+| id_pedido| id_usuario | fecha_pedido |
++----------+------------+--------------+
+|        1 |          2 | 2026-10-18   |
+|        2 |          3 | 2026-10-19   |
++----------+------------+--------------+
+2 rows in set (0.0006 sec)
+
+ MySQL  localhost:3306 ssl  practica4  SQL > select * from articulo;
++-------------+------------+--------+-------+
+| id_articulo | nombre_art | precio | unidad|
++-------------+------------+--------+-------+
+|           1 | tenis      |   1200 | par   |
+|           2 | gorra      |    350 | pieza |
+|           3 | mochila    |    800 | pieza |
++-------------+------------+--------+-------+
+3 rows in set (0.0007 sec)
+
+ MySQL  localhost:3306 ssl  practica4  SQL > select * from detalle_pedido;
++--------------+-----------+-------------+----------+
+| id_detalle   | id_pedido | id_articulo | cantidad |
++--------------+-----------+-------------+----------+
+|            1 |         1 |           1 |        2 |
+|            2 |         2 |           3 |        4 |
++--------------+-----------+-------------+----------+
+2 rows in set (0.0006 sec)

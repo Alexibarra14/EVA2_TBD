@@ -1,0 +1,371 @@
+Microsoft Windows [Versión 10.0.26200.9711]
+(c) Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\aleja>mysqlsh
+MySQL Shell 8.0.46
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect mc --root@localthost
+\connect mc --root@localthost: unknown option --root@localthost
+\connect [--mx|--mysqlx|--mc|--mysql] [--ssh <sshuri>] <URI>
+ MySQL  SQL > \connect -- mc root@localthost
+\connect [--mx|--mysqlx|--mc|--mysql] [--ssh <sshuri>] <URI>
+ MySQL  SQL > \connect -- mc root@localhost
+\connect [--mx|--mysqlx|--mc|--mysql] [--ssh <sshuri>] <URI>
+ MySQL  SQL > \connect mc -- root@localhost
+Creating a session to 'aleja@mc'
+Please provide the password for 'aleja@mc': ****
+MySQL Error 2005: No such host is known 'mc'
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > create rol 'supervisores';
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rol 'supervisores'' at line 1
+ MySQL  localhost:3306 ssl  SQL > create role 'supervisores';
+Query OK, 0 rows affected (0.0448 sec)
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| t1                 |
+| t1_copia           |
+| t2                 |
+| tbd_exa1           |
+| ventas             |
+| ventas_bicicletas  |
++--------------------+
+11 rows in set (0.0341 sec)
+ MySQL  localhost:3306 ssl  SQL > use t1;
+Default schema set to `t1`.
+Fetching global names, object names from `t1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  t1  SQL > show tables;
++--------------------+
+| Tables_in_t1       |
++--------------------+
+| carro              |
+| copia_persona      |
+| empleado           |
+| matricula          |
+| persona            |
+| persona_modificada |
+| playera            |
+| vehiculo           |
++--------------------+
+8 rows in set (0.0025 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 9
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > create role 'supervisores';
+ERROR: 1396 (HY000): Operation CREATE ROLE failed for 'supervisores'@'%'
+ MySQL  localhost:3306 ssl  SQL > grant select on t1.carro to 'supervisores';
+Query OK, 0 rows affected (0.1725 sec)
+ MySQL  localhost:3306 ssl  SQL > create user 'usuario_rol'@'localhost' identified by '1417';
+Query OK, 0 rows affected (0.0446 sec)
+ MySQL  localhost:3306 ssl  SQL > grant 'supervisores' to 'usuario_rol'@localhost';
+                               '>
+                               '> ^C
+ MySQL  localhost:3306 ssl  SQL > grant 'supervisores' to 'usuario_rol'@'localhost';
+Query OK, 0 rows affected (0.0386 sec)
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 10
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| t1                 |
+| t1_copia           |
+| t2                 |
+| tbd_exa1           |
+| ventas             |
+| ventas_bicicletas  |
++--------------------+
+11 rows in set (0.0021 sec)
+ MySQL  localhost:3306 ssl  SQL > \disconnect;
+Unknown command: '\disconnect;'
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 11
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > create role 'administrativo'@'localhost';
+Query OK, 0 rows affected (0.0111 sec)
+ MySQL  localhost:3306 ssl  SQL > grant select on t1.carro to 'usuario_rol'@'localhost';
+Query OK, 0 rows affected (0.0368 sec)
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc usuario_rol@localhost
+Creating a Classic session to 'usuario_rol@localhost'
+Please provide the password for 'usuario_rol@localhost': ****
+Save password for 'usuario_rol@localhost'? [Y]es/[N]o/Ne[v]er (default No): N
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Your MySQL connection id is 12
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
+| t1                 |
++--------------------+
+3 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  SQL > use t1;
+Default schema set to `t1`.
+Fetching global names, object names from `t1` for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+ MySQL  localhost:3306 ssl  t1  SQL > show tables;
++--------------+
+| Tables_in_t1 |
++--------------+
+| carro        |
++--------------+
+1 row in set (0.0038 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > select * from carro;
+Empty set (0.0279 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > select * from carro;
+Empty set (0.0010 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 13
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > grant select on t1.carro to 'administrativos'@'localhost';
+ERROR: 1410 (42000): You are not allowed to create a user with GRANT
+ MySQL  localhost:3306 ssl  SQL > grant select on t1.carro to 'administrativo'@'localhost';
+Query OK, 0 rows affected (0.0382 sec)
+ MySQL  localhost:3306 ssl  SQL > create user 'usuario_rol2'@'localhost';
+Query OK, 0 rows affected (0.0433 sec)
+ MySQL  localhost:3306 ssl  SQL > grant 'administrativo'@'localhost' to 'usuario_rol2'@'localhost';
+Query OK, 0 rows affected (0.0403 sec)
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc usuario_rol2@localhost;
+Creating a Classic session to 'usuario_rol2@localhost;'
+Please provide the password for 'usuario_rol2@localhost;': ****
+MySQL Error 2005 (HY000): Unknown MySQL server host 'localhost;' (11001)
+ MySQL  SQL > \connect --mc usuario_rol2@localhost
+Creating a Classic session to 'usuario_rol2@localhost'
+Please provide the password for 'usuario_rol2@localhost': ****
+MySQL Error 1045 (28000): Access denied for user 'usuario_rol2'@'localhost' (using password: YES)
+ MySQL  SQL > \connect --mc usuario_rol2@localhost
+Creating a Classic session to 'usuario_rol2@localhost'
+Please provide the password for 'usuario_rol2@localhost': ****
+MySQL Error 1045 (28000): Access denied for user 'usuario_rol2'@'localhost' (using password: YES)
+ MySQL  SQL > \connect --mc usuario_rol2@localhost
+Creating a Classic session to 'usuario_rol2@localhost'
+Please provide the password for 'usuario_rol2@localhost': ***
+MySQL Error 1045 (28000): Access denied for user 'usuario_rol2'@'localhost' (using password: YES)
+ MySQL  SQL > \connect --mc usuario_rol2@localhost
+Creating a Classic session to 'usuario_rol2@localhost'
+Please provide the password for 'usuario_rol2@localhost': ****
+MySQL Error 1045 (28000): Access denied for user 'usuario_rol2'@'localhost' (using password: YES)
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 18
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > ALTER USER 'usuario_rol2'@'localhost' IDENTIFIED BY 'tu_contraseña';
+Query OK, 0 rows affected (0.0521 sec)
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc usuario_rol2@localhost
+Creating a Classic session to 'usuario_rol2@localhost'
+Please provide the password for 'usuario_rol2@localhost': **************
+Save password for 'usuario_rol2@localhost'? [Y]es/[N]o/Ne[v]er (default No): N
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Your MySQL connection id is 19
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
++--------------------+
+2 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 20
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > set global activate_all_roles_on_login = ON;
+Query OK, 0 rows affected (0.0006 sec)
+ MySQL  localhost:3306 ssl  SQL > \DISCONNECT
+Unknown command: '\DISCONNECT'
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc usuario_rol2@localhost
+Creating a Classic session to 'usuario_rol2@localhost'
+Please provide the password for 'usuario_rol2@localhost': **************
+Save password for 'usuario_rol2@localhost'? [Y]es/[N]o/Ne[v]er (default No): N
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Your MySQL connection id is 21
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
+| t1                 |
++--------------------+
+3 rows in set (0.0023 sec)
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 22
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL >
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| t1                 |
+| t1_copia           |
+| t2                 |
+| tbd_exa1           |
+| ventas             |
+| ventas_bicicletas  |
++--------------------+
+11 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  SQL > use t2;
+Default schema set to `t2`.
+Fetching global names, object names from `t2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  t2  SQL > show tables;
++--------------+
+| Tables_in_t2 |
++--------------+
+| carrera      |
+| producto     |
+| tablaa       |
+| tablab       |
++--------------+
+4 rows in set (0.0022 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > desc carrera;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| id     | int          | NO   | PRI | NULL    | auto_increment |
+| nombre | varchar(100) | NO   |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+2 rows in set (0.0050 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > desc tablaa;
++--------+------------+------+-----+---------+-------+
+| Field  | Type       | Null | Key | Default | Extra |
++--------+------------+------+-----+---------+-------+
+| id     | int        | YES  |     | NULL    |       |
+| nombre | varchar(1) | YES  |     | NULL    |       |
++--------+------------+------+-----+---------+-------+
+2 rows in set (0.0042 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > desc producto;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id_producto | int         | NO   | PRI | NULL    | auto_increment |
+| nombre      | varchar(50) | NO   |     | NULL    |                |
+| precio      | double      | NO   |     | NULL    |                |
+| unidad      | varchar(10) | NO   |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0034 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > start transaction;
+Query OK, 0 rows affected (0.0019 sec)
+ MySQL  localhost:3306 ssl  t2  ★  SQL > insert into producto(id_cliente, fecha_producto)
+                                      -> value(7,"2026-11-05);
+                                      "> ");
+ERROR: 1054 (42S22): Unknown column 'id_cliente' in 'field list'
+ MySQL  localhost:3306 ssl  t2  ★  SQL > roll back;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'roll back' at line 1
+ MySQL  localhost:3306 ssl  t2  ★  SQL > rollback;
+Query OK, 0 rows affected (0.0006 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select * from producto;
++-------------+----------+--------+--------+
+| id_producto | nombre   | precio | unidad |
++-------------+----------+--------+--------+
+|           1 | Playera  |    500 | pieza  |
+|           2 | pantalon |    200 | pieza  |
+|           3 | short    |    600 | pieza  |
++-------------+----------+--------+--------+
+3 rows in set (0.0494 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > start transaction;
+Query OK, 0 rows affected (0.0006 sec)
+ MySQL  localhost:3306 ssl  t2  ★  SQL > select * from producto;
++-------------+----------+--------+--------+
+| id_producto | nombre   | precio | unidad |
++-------------+----------+--------+--------+
+|           1 | Playera  |    500 | pieza  |
+|           2 | pantalon |    200 | pieza  |
+|           3 | short    |    600 | pieza  |
++-------------+----------+--------+--------+
+3 rows in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  t2  ★  SQL > insert into producto(id_producto, nombre, precio, unidad)
+                                      -> value(14, "alejandro", 15, "pieza");
+Query OK, 1 row affected (0.0087 sec)
+ MySQL  localhost:3306 ssl  t2  ★  SQL > select * from producto;
++-------------+-----------+--------+--------+
+| id_producto | nombre    | precio | unidad |
++-------------+-----------+--------+--------+
+|           1 | Playera   |    500 | pieza  |
+|           2 | pantalon  |    200 | pieza  |
+|           3 | short     |    600 | pieza  |
+|          14 | alejandro |     15 | pieza  |
++-------------+-----------+--------+--------+
+4 rows in set (0.0012 sec)
+ MySQL  localhost:3306 ssl  t2  ★  SQL > commit;
+Query OK, 0 rows affected (0.0385 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > rollback;
+Query OK, 0 rows affected (0.0006 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select * from producto;
++-------------+-----------+--------+--------+
+| id_producto | nombre    | precio | unidad |
++-------------+-----------+--------+--------+
+|           1 | Playera   |    500 | pieza  |
+|           2 | pantalon  |    200 | pieza  |
+|           3 | short     |    600 | pieza  |
+|             |           |        |        |
++-------------+-----------+--------+--------+
+4 rows in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  t2  SQL >
